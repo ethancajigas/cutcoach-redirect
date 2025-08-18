@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CutCoach - Redirecting...</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            padding: 2rem;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .message {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fallback {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .fallback a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">CutCoach</div>
+        <div class="spinner"></div>
+        <div class="message">Redirecting to your app...</div>
+        <div class="fallback">
+            <p>If you're not redirected automatically, <a href="#" id="openApp">click here to open the app</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Get the current URL path and parameters
+        const path = window.location.pathname;
+        const search = window.location.search;
+        const hash = window.location.hash;
+        
+        // Construct the deep link URL
+        let deepLinkUrl = 'cutcoach://' + path.substring(1); // Remove leading slash
+        if (search) deepLinkUrl += search;
+        if (hash) deepLinkUrl += hash;
+        
+        console.log('Attempting to open:', deepLinkUrl);
+        
+        // Try to open the app
+        function openApp() {
+            window.location.href = deepLinkUrl;
+        }
+        
+        // Set up fallback link
+        document.getElementById('openApp').addEventListener('click', function(e) {
+            e.preventDefault();
+            openApp();
+        });
+        
+        // Try to open the app immediately
+        setTimeout(openApp, 100);
+        
+        // If we're still here after 3 seconds, show a message
+        setTimeout(function() {
+            document.querySelector('.message').textContent = 'Unable to open the app automatically. Please use the link above.';
+        }, 3000);
+    </script>
+</body>
+</html>
