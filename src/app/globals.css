@@ -1,26 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light Theme - Primary Colors */
+  --color-primary: #ffffff;           /* Pure white */
+  --color-primary-light: #f8fafc;     /* Very light gray */
+  --color-primary-dark: #f1f5f9;      /* Light gray */
+  
+  /* Secondary Colors */
+  --color-secondary: #f8fafc;         /* Very light gray */
+  --color-secondary-light: #ffffff;   /* Pure white */
+  --color-secondary-dark: #f1f5f9;    /* Light gray */
+  
+  /* Background Colors */
+  --color-bg-primary: var(--color-primary);
+  --color-bg-secondary: var(--color-secondary);
+  --color-bg-light: var(--color-primary-light);
+  --color-bg-dark: var(--color-primary-dark);
+  
+  /* Text Colors */
+  --color-text-primary: #1d1a24;      /* Your app's black theme */
+  --color-text-secondary: #2d2a34;    /* Slightly lighter black */
+  --color-text-muted: #3d3a44;        /* Medium black */
+  --color-text-accent: #1d1a24;       /* Your app's black theme */
+  
+  /* Border Colors */
+  --color-border-primary: #e2e8f0;    /* Light gray border */
+  --color-border-light: #f1f5f9;      /* Very light gray */
+  --color-border-dark: #cbd5e1;       /* Medium gray */
+  
+  /* Gradient Colors - Black Theme */
+  --gradient-primary: linear-gradient(135deg, #1d1a24 0%, #2d2a34 50%, #1d1a24 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+  --gradient-accent: linear-gradient(135deg, #1d1a24 0%, #2d2a34 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(29, 26, 36, 0.1) 0%, rgba(45, 42, 52, 0.05) 25%, rgba(255, 255, 255, 0) 100%);
+  --gradient-accent-overlay: linear-gradient(135deg, rgba(29, 26, 36, 0.0) 0%, rgba(29, 26, 36, 0.08) 5%, rgba(255, 255, 255, 0) 100%);
+  
+  /* Shadow Colors */
+  --shadow-color: rgba(29, 26, 36, 0.1);
+  --shadow-color-light: rgba(29, 26, 36, 0.05);
+  
+  /* Status Colors - Black Theme */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #1d1a24;
+  
+  /* Accent Colors - Black Theme */
+  --color-accent-blue: #1d1a24;
+  --color-accent-light-blue: #2d2a34;
+  --color-accent-pink: #3d3a44;
+  --color-accent-purple: #1d1a24;
+  --color-accent-orange: #2d2a34;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-bg-primary);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: 'Montserrat';
+  --font-mono: 'Montserrat';
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global Styles */
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000000;
+  color: var(--color-text-primary);
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  color: var(--color-text-secondary);
+}
+
+/* Links */
+a {
+  color: var(--color-text-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #8b5cf6;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-primary);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+
+/* Override for black background sections */
+.bg-black .btn-primary {
+  background: white !important;
+  color: black !important;
+}
+
+.bg-black .btn-primary:hover {
+  background: #f3f4f6 !important;
+  color: black !important;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-accent-blue);
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--color-accent-blue);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-secondary:hover::before {
+  left: 0;
+}
+
+.btn-secondary:hover {
+  color: var(--color-primary);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+
+/* Override for black background sections */
+.bg-black .btn-secondary {
+  border-color: white !important;
+  color: white !important;
+}
+
+.bg-black .btn-secondary:hover {
+  background: white !important;
+  color: black !important;
+}
+
+/* Text overrides for black backgrounds */
+.bg-black h1,
+.bg-black h2,
+.bg-black h3,
+.bg-black h4,
+.bg-black h5,
+.bg-black h6 {
+  color: white !important;
+}
+
+.bg-black p {
+  color: #d1d5db !important;
+}
+
+.bg-black .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+.bg-black .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.bg-black .text-gradient {
+  background: linear-gradient(to right, white, #d1d5db) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Header button overrides */
+header .btn-primary,
+header a[href="#signup"] {
+  background: white !important;
+  color: black !important;
+}
+
+header .btn-primary:hover,
+header a[href="#signup"]:hover {
+  background: #f3f4f6 !important;
+  color: black !important;
+}
+
+/* Testimonials avatar overrides */
+.card .rounded-full[style*="gradient-primary"] {
+  background: white !important;
+  color: black !important;
+}
+
+/* Cards */
+.card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--shadow-color-light);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 12px 40px var(--shadow-color);
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Card overrides for black backgrounds */
+.bg-black .card {
+  background: black !important;
+  border-color: white !important;
+}
+
+/* Sections */
+.section-primary {
+  background: var(--color-bg-primary);
+}
+
+.section-secondary {
+  background: var(--color-bg-secondary);
+}
+
+.section-gradient {
+  background: var(--gradient-primary);
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--color-bg-primary), var(--color-bg-primary)) padding-box,
+              var(--gradient-accent) border-box;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-light);
+}
+
+/* Focus States - Removed to eliminate black box on navigation */
+*:focus {
+  outline: none;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-text-accent);
+  color: var(--color-text-primary);
+}
+
+/* Mobile menu link overrides */
+.mobile-menu a:not([href="#download"]) {
+  color: white !important;
+}
+
+/* Animations - Only keeping hover-related animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--color-accent-blue);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--color-accent-blue), 0 0 60px var(--color-accent-blue);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Keeping these classes for potential hover use, but removing auto-animations */
+.animate-pulse {
+  /* Removed auto-animation - only for hover use */
+}
+
+.animate-glow {
+  /* Removed auto-animation - only for hover use */
+}
+
+.animate-float {
+  /* Removed auto-animation - only for hover use */
+}
+
+.gradient-animate {
+  /* Removed auto-animation - only for hover use */
 }
